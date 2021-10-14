@@ -28,20 +28,22 @@ describe('HeroService', () => {
     });
 
     describe('getHero', () => {
-        // call getHero()
-        heroService.getHero(4).subscribe();
+        it('should call correct URL', () => {
+            // call getHero()
+            heroService.getHero(4).subscribe();
 
-        // test that the URL is correct
-        const req = httpTestingController.expectOne('api/heroes/4');
+            // test that the URL is correct
+            const req = httpTestingController.expectOne('api/heroes/4');
 
-        req.flush({
-            id: 4,
-            name: 'Batman',
-            strength: 40
+            req.flush({
+                id: 4,
+                name: 'Batman',
+                strength: 40
+            });
+
+            expect(req.request.method).toBe('GET');
+
+            httpTestingController.verify();
         });
-
-        expect(req.request.method).toBe('GET');
-
-        httpTestingController.verify();
     });
 });
